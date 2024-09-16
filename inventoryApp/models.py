@@ -21,6 +21,7 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
     
 
+#class ya users, user_type (no: value, 'param': cover value)
 class User(AbstractUser):
     USER_TYPES = (
         (1, 'Manager'),
