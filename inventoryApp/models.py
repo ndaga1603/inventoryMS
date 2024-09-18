@@ -45,7 +45,10 @@ class User(AbstractUser):
     REQUIRED_FIELDS = [] # remove username from required fields 
     
     objects = CustomUserManager()
-
+    
+    class Meta:
+        db_table = 'user'
+        
 
 class Customer(models.Model):
     full_name = models.CharField(max_length=100)
@@ -53,7 +56,10 @@ class Customer(models.Model):
     phone = models.CharField(max_length=15)
     address = models.TextField()
     image = models.ImageField(upload_to='customer_pics', default='default.jpg')
-
+    
+    class Meta:
+        db_table = 'customer'
+        
     def __str__(self):
         return self.full_name
     
@@ -65,6 +71,9 @@ class Product(models.Model):
     quantity = models.PositiveIntegerField()
     category = models.CharField(max_length=100)
     image = models.ImageField(upload_to='product_pics', default='default.jpg')
+    
+    class Meta:
+        db_table = 'product'
 
     def __str__(self):
         return self.name
@@ -86,6 +95,10 @@ class Order(models.Model):
     payment_status = models.PositiveSmallIntegerField(choices=PAYMENT_STATUS)
     placed_at = models.DateTimeField(auto_now_add=True)
     
+    
+    class Meta:
+        db_table = 'order'
+    
     def __str__(self):
         return self.order_id
     
@@ -94,6 +107,9 @@ class OrderProduct(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
+    
+    class Meta:
+        db_table = 'order_product'
     
     def __str__(self):
         return self.product.name
