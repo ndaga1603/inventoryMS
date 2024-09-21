@@ -2,7 +2,9 @@
   "cSpell.words": [
     "createdb",
     "createsuperuser",
+    "jazzmin",
     "Ndaga",
+    "psycopg",
     "runserver",
     "venv"
   ]
