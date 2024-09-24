@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+{% include "navigation.html" %}
+
+{% if request.user.is_authenticated and request.user.user_type == 1 %}
+    <button class="btn btn-primary" onclick="window.location.href = '{% url "registration" %}'">Register</button>
+{% endif %}
+
+{% endblock main %}
