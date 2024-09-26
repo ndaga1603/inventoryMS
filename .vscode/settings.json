@@ -4,6 +4,7 @@
     "createsuperuser",
     "jazzmin",
     "Ndaga",
+    "psycopg",
     "runserver",
     "venv"
   ]
