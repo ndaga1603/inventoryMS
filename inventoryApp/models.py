@@ -48,6 +48,7 @@ class User(AbstractUser):
     
     class Meta:
         db_table = 'user'
+        ordering = ["id"]
         
 
 class Customer(models.Model):
