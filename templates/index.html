@@ -4,8 +4,37 @@
 
 {% include "navigation.html" %}
 
-{% if request.user.is_authenticated and request.user.user_type == 1 %}
-    <button class="btn btn-primary" onclick="window.location.href = '{% url "registration" %}'">Register</button>
-{% endif %}
+    <div class="container my-4">
+     
+        <div class="d-flex justify-content-between">
+            <h4>User List</h4>
+            {% if request.user.is_authenticated and request.user.user_type == 1 %}
+                <a href='{% url "registration" %}' class="btn btn-outline-primary">Register</a>
+            {% endif %}
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">HEmail</th>
+                <th scope="col">Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                <th scope="row">{{ user.id }}</th>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>@{{ user.email }}</td>
+                <td>{{ user.phone }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 
 {% endblock main %}
