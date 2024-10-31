@@ -19,4 +19,5 @@ urlpatterns = [
     ),
     path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
     path("registration/", RegistrationView.as_view(), name="registration"),
+    path("create-order-product/", OrderProductCreateView.as_view(), name="order-product"),
 ]

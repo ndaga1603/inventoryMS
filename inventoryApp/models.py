@@ -1,3 +1,4 @@
+from random import randint
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
@@ -95,10 +96,45 @@ class Order(models.Model):
     order_status = models.PositiveSmallIntegerField(choices=ORDER_STATUS)
     payment_status = models.PositiveSmallIntegerField(choices=PAYMENT_STATUS)
     placed_at = models.DateTimeField(auto_now_add=True)
-    
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     
     class Meta:
         db_table = 'order'
+        
+        
+    # order id must be the  current date + 4 digit random number
+    def save(self, *args, **kwargs):
+        if  not self.order_id:
+            self.order_id = f'{self.placed_at.strftime("%Y%m%d")}{randint(1000, 9999)}'
+        super(Order, self).save(*args, **kwargs)
+            
+            
+            
+    # def save(self, *args, **kwargs):
+    #     if not self.order_id:
+    #         # Get the current date in the format YYYYMMDD
+    #         current_date_str = datetime.datetime.now().strftime("%Y%m%d")
+
+    #         # Fetch the latest order for the same day
+    #         latest_order = (
+    #             Order.objects.filter(order_id__startswith=current_date_str)
+    #             .order_by("-id")
+    #             .first()
+    #         )
+
+    #         if latest_order:
+    #             # Extract the sequence number from the latest order_id and increment it
+    #             last_sequence = int(latest_order.order_id[-4:])
+    #             new_sequence = f"{last_sequence + 1:04d}"  # Format as a four-digit number, zero-padded
+    #         else:
+    #             # If no orders for the current day, start with sequence 0000
+    #             new_sequence = "0000"
+
+    #         # Combine the date with the new sequence to form the order_id
+    #         self.order_id = f"{current_date_str}{new_sequence}"
+
+    #     super(Order, self).save(*args, **kwargs)
+        
     
     def __str__(self):
         return self.order_id

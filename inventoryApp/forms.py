@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User
+from .models import User, Order, OrderProduct
 
 
 class RegistrationForm(forms.ModelForm):
@@ -19,7 +19,26 @@ class RegistrationForm(forms.ModelForm):
             'password': forms.PasswordInput(attrs={'class': 'form-control'}),
         }
     
-
+    
+class OrderForm(forms.ModelForm):
+    
+    class Meta:
+        model = Order
+        fields = ['order_id', 'order_status', 'payment_status', 'customer']
+    
+    
+    
+class OrderProductForm(forms.ModelForm):
+    
+    class Meat:
+        model = OrderProduct
+        fields = ['order', 'product', 'quantity']
+    
+    
+    
+    
+    
+    
     # def save(self, commit=True):
     #     user = super(RegistrationForm, self).save(commit=False)
     #     user.set_password(self.cleaned_data['password'])
